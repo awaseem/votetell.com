@@ -1,4 +1,10 @@
 <template name="home">
     <h1>Interactive polls</h1>
-    <button id="test">Click me to create a new poll</button>
+    <form class="new-question">
+        <input type="text" name="question" placeholder="Enter a question">
+        <br>
+        <input class="last-choice" type="text" name="choice" placeholder="Enter a choice">
+        <br>
+        <input type="submit" class="submit">
+    </form>
 </template>
