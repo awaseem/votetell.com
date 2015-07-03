@@ -13,6 +13,11 @@ schemas.responses = new SimpleSchema({
         max: 500,
         label: "Response to each choice"
     },
+    name: {
+        type: String,
+        max: 100,
+        label: "Name of user"
+    },
     date: {
         type: Date,
         label: "Date Created",
@@ -51,7 +56,8 @@ schemas.questions = new SimpleSchema({
     question: {
         type: String,
         label: "Question",
-        max: 500
+        max: 500,
+        min: 3
     },
     date: {
         type: Date,
