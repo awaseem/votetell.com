@@ -3,7 +3,6 @@
  */
 
 parseFormData = function (formArray) {
-    console.log(formArray);
     var formData = {
         question: "",
         choices: []

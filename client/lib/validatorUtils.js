@@ -16,6 +16,20 @@ questionValidator = function (questionString) {
 
 choiceValidator = function (choiceStrings) {
     var choiceErrors = [];
-    var choiceContext = Choices.simpleSchema().nameContext();
-
+    var choiceContext = Choices.simpleSchema().namedContext();
+    if (!Array.isArray(choiceStrings)) { throw "choiceStrings is not an array!"}
+    if (choiceStrings.length == 0) {
+        choiceErrors.push("You must enter at least one choice");
+    }
+    else {
+        for (var i = 0; i < choiceStrings.length; i++) {
+            if (!choiceContext.validateOne({ choice: choiceStrings[i]}, "choice")) {
+                var invalidKeys = choiceContext.invalidKeys();
+                for (var j = 0; j < invalidKeys.length; j++) {
+                    choiceErrors.push(choiceContext.keyErrorMessage(invalidKeys[j].name));
+                }
+            }
+        }
+    }
+    return choiceErrors
 };
