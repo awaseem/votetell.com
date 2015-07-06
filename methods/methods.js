@@ -3,6 +3,11 @@
  */
 
 var addChoice = function(question_id, choice) {
+    /**
+     * @param {string} question_id - ID for the question the choice should correlate to.
+     * @param {string} choice - choice to insert
+     * @return {string} Choice that was successfully inserted into the database
+     */
     Choices.insert({
         question_id: question_id,
         choice: choice

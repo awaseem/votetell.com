@@ -3,6 +3,12 @@
  */
 
 questionValidator = function (questionString) {
+    /**
+     * Takes a question string and returns an array of errors that are found
+     * with the string.
+     * @param {String} questionString - Question to validate.
+     * @returns {Array} Contains all error messages that relate to the question.
+     */
     var questionErrors = [];
     var questionContext = Questions.simpleSchema().namedContext();
     if (!questionContext.validateOne({ question: questionString}, "question")) {
@@ -15,6 +21,13 @@ questionValidator = function (questionString) {
 };
 
 choiceValidator = function (choiceStrings) {
+    /**
+     * Takes an array of choices and returns an array of errors that are found
+     * with each choice.
+     * @param {Array} choiceStrings - All choices to validate.
+     * @return {Array} Contains all error messages that relating to all the choices
+     * passed in.
+     */
     var choiceErrors = [];
     var choiceContext = Choices.simpleSchema().namedContext();
     if (!Array.isArray(choiceStrings)) { throw "choiceStrings is not an array!"}

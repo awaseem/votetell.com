@@ -73,6 +73,21 @@ schemas.questions = new SimpleSchema({
                 this.unset();
             }
         }
+    },
+    urlKey: {
+        type: String,
+        label: "Url Key",
+        autoValue: function () {
+            if (this.isInsert) {
+                return ShortId.generate()
+            }
+            else if (this.isUpsert) {
+                return {$setOnInsert: ShortId.generate()}
+            }
+            else {
+                this.unset();
+            }
+        }
     }
 });
 

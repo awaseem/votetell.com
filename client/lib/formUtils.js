@@ -3,6 +3,13 @@
  */
 
 parseFormData = function (formArray) {
+    /**
+     * Parses the form data and organizes the data into a simple use javascript object.
+     * @param {Object[]} formArray - The form entries used to create a new poll.
+     * @param {string} formArray[].name - Key used to distinguish between a question or a choice.
+     * @param {string} formArray[].value - Value stored in the return object.
+     * @return {{question: string, choices: Array}} Parsed form data into a single javascript object.
+     */
     var formData = {
         question: "",
         choices: []
