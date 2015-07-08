@@ -39,10 +39,21 @@ Meteor.methods({
     updateChoiceHit: function(choiceId) {
         Choices.update(choiceId, {
             $inc: { hits: 1 }
-        }, function(error, result) {
+        }, function(error) {
             if (error) {
                 console.error("Failed to update hit for choice id: " + choiceId);
             }
         });
+    },
+    addResponseToChoice: function(choiceId, response, name) {
+        Responses.insert({
+            choice_id: choiceId,
+            name: name,
+            response: response
+        }, function(error) {
+            if (error) {
+                console.error("Failed to add response: " + response + " for choice id: " + choiceId);
+            }
+        })
     }
 });

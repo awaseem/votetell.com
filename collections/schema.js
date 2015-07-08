@@ -11,7 +11,7 @@ schemas.responses = new SimpleSchema({
     response: {
         type: String,
         max: 500,
-        label: "Response to each choice"
+        label: "Response to choice"
     },
     name: {
         type: String,

@@ -2,7 +2,7 @@
  * Created by awaseem on 15-06-29.
  */
 
-Meteor.publish("questionInfo", function (urlKey) {
+Meteor.publish("questionInfo", function(urlKey) {
     var question = Questions.findOne({ urlKey: urlKey });
     if (!question) {
         return [];
@@ -11,14 +11,21 @@ Meteor.publish("questionInfo", function (urlKey) {
     if (!choices) {
         return [];
     }
+
+    var choiceFilter = [];
+    choices.forEach(function(choice) {
+        choiceFilter.push(choice._id);
+    });
+    var responses = Responses.find({ choice_id: { $in: choiceFilter } });
+    if (!responses) {
+        return [];
+    }
+
     return [
         // returning this because meteor requires a cursor for its Pub Sub to work properly
         // findOne does not return a cursor, but the entire document
         Questions.find({ urlKey: urlKey }),
-        choices
+        choices,
+        responses
     ]
 });
-
-//Meteor.publish("responses", function(choice_ids) {
-//    return Responses.find({ choice_id: { $in: choice_ids } });
-//});

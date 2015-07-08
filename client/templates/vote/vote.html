@@ -2,9 +2,15 @@
     <h1>{{question.question}}</h1>
     <form class="choice-selection">
         {{#each choices}}
-            <input type="radio" name="choice" id="{{_id}}" value={{choice}}>{{choice}}
+            <input type="radio" name="choice" id="{{_id}}" value={{choice}}/><label for="{{_id}}">{{choice}}</label>
             <br>
         {{/each}}
+        <label for="response-text">response</label>
+        <input type="text" id="response-text" name="response"/>
+        <br>
         <input type="submit" id="submit">
     </form>
+    {{#each responses}}
+        <h1>{{response}}</h1>
+    {{/each}}
 </template>

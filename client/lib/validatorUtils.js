@@ -46,3 +46,21 @@ choiceValidator = function (choiceStrings) {
     }
     return choiceErrors
 };
+
+responseValidator = function (responseString) {
+    /**
+     * Takes a response string and returns an array of errors that are found
+     * with the string.
+     * @param {String} responseString - Response to validate.
+     * @returns {Array} Contains all error messages that relate to the response.
+     */
+    var responseErrors = [];
+    var responseContext = Responses.simpleSchema().namedContext();
+    if (!responseContext.validateOne({ response: responseString}, "response")) {
+        var invalidKeys = responseContext.invalidKeys();
+        for (var i = 0; i < invalidKeys.length; i++) {
+            responseErrors.push(responseContext.keyErrorMessage(invalidKeys[i].name));
+        }
+    }
+    return responseErrors
+};
