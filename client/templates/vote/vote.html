@@ -1,9 +1,10 @@
 <template name="vote">
     <h1>{{question.question}}</h1>
-    <form name="choiceSelection">
+    <form class="choice-selection">
         {{#each choices}}
-            <input type="radio" name="choice" value={{choice}}>{{choice}}
+            <input type="radio" name="choice" id="{{_id}}" value={{choice}}>{{choice}}
             <br>
         {{/each}}
+        <input type="submit" id="submit">
     </form>
 </template>

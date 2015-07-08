@@ -35,5 +35,14 @@ Meteor.methods({
                 }
             }
         });
+    },
+    updateChoiceHit: function(choiceId) {
+        Choices.update(choiceId, {
+            $inc: { hits: 1 }
+        }, function(error, result) {
+            if (error) {
+                console.error("Failed to update hit for choice id: " + choiceId);
+            }
+        });
     }
 });
