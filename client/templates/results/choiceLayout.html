@@ -1,0 +1,7 @@
+<template name="choiceLayout">
+    <h1>----------------------choices-------------------</h1>
+    <h1>Total Votes: {{totalHits}}</h1>
+    {{#each choices}}
+        <h2>{{choice}}: {{hits}}, Percentage: {{calculatePercentage hits totalHits}}%</h2>
+    {{/each}}
+</template>

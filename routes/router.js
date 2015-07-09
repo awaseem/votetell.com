@@ -2,15 +2,15 @@
  * Created by awaseem on 15-06-28.
  */
 Router.route("/", {
-    action: function () {
+    action: function() {
         this.render("home");
     }
 });
 
 Router.route("/:vote_id", {
-    onBeforeAction: function () {
+    onBeforeAction: function() {
         if (!Questions.findOne({ urlKey: this.params.vote_id })) {
-            if (this.questionSubscription.ready()) {
+            if (this.questionAndChoicesSub.ready()) {
                 this.render("error");
             }
             else {
@@ -21,10 +21,32 @@ Router.route("/:vote_id", {
             this.next();
         }
     },
-    waitOn: function () {
-        this.questionSubscription = Meteor.subscribe("questionInfo", this.params.vote_id);
+    waitOn: function() {
+        this.questionAndChoicesSub = Meteor.subscribe("questionAndChoices", this.params.vote_id);
     },
-    action: function () {
+    action: function() {
         this.render("vote");
+    }
+});
+
+Router.route("/:vote_id/r", {
+    onBeforeAction: function() {
+        if (!Questions.findOne({ urlKey: this.params.vote_id })) {
+            if (this.questionResponsesAndChoicesSub.ready()) {
+                this.render("error");
+            }
+            else {
+                this.next();
+            }
+        }
+        else {
+            this.next();
+        }
+    },
+    waitOn: function() {
+        this.questionResponsesAndChoicesSub = Meteor.subscribe("questionChoicesAndResponses", this.params.vote_id);
+    },
+    action: function() {
+        this.render("result");
     }
 });

@@ -8,9 +8,6 @@ Template.vote.helpers({
     },
     choices: function () {
         return Choices.find();
-    },
-    responses: function () {
-        return Responses.find({}, {sort: {date: -1}});
     }
 });
 
@@ -42,6 +39,7 @@ Template.vote.events({
         }
 
         Meteor.call("updateChoiceHit", choiceId);
+        $(".choice-selection").trigger("reset");
         return false;
     }
 });
