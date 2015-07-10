@@ -47,6 +47,12 @@ Router.route("/:vote_id/r", {
         this.questionResponsesAndChoicesSub = Meteor.subscribe("questionChoicesAndResponses", this.params.vote_id);
     },
     action: function() {
-        this.render("result");
+        if (this.questionResponsesAndChoicesSub.ready()) {
+            this.render("result");
+        }
+        else {
+            this.render("loading");
+        }
+        //this.render("result");
     }
 });
