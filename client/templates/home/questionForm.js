@@ -8,7 +8,15 @@ var choices = 1;
 var MAX_CHOICES = 10;
 
 Template.questionForm.helpers({
-    // TODO add ui handling for errors
+});
+
+Template.questionError.helpers({
+    questionErrors: function () {
+        return Session.get("questionErrors");
+    },
+    choiceErrors: function () {
+        return Session.get("choiceErrors");
+    }
 });
 
 Template.questionForm.events ({
@@ -18,9 +26,10 @@ Template.questionForm.events ({
         var questionErrors = questionValidator(formData.question);
         var choiceErrors = choiceValidator(formData.choices);
         if (choiceErrors.length != 0 || questionErrors.length != 0) {
-            // TODO add ui handling for errors
-            console.log(questionErrors);
-            console.log(choiceErrors);
+            Session.set("questionErrors", questionErrors);
+            Session.set("choiceErrors", choiceErrors);
+            $('.ui.modal')
+                .modal('show');
             return false;
         }
         else {

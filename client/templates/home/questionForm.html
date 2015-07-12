@@ -16,4 +16,27 @@
             </div>
         </div>
     </form>
+    {{> questionError}}
+</template>
+
+<template name="questionError">
+    <div class="ui small modal">
+        <div class="header">
+            Error
+        </div>
+        <div class="content">
+            <h5>You have the following errors with your poll:</h5>
+            <ul>
+                {{#each questionErrors}}
+                    <li>{{this}}</li>
+                {{/each}}
+                {{#each choiceErrors}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="actions">
+            <div class="ui cancel small red button">Got It!</div>
+        </div>
+    </div>
 </template>
