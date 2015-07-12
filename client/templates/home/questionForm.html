@@ -1,9 +1,19 @@
 <template name="questionForm">
-    <form class="new-question">
-        <input type="text" name="question" placeholder="Enter a question">
-        <br>
-        <input class="last-choice" type="text" name="choice" placeholder="Enter a choice">
-        <br>
-        <input type="submit" id="submit">
+    <form class="new-question ui form">
+        <div class="field">
+            <label>Question:</label>
+            <input type="text" name="question" placeholder="Enter a question">
+        </div>
+        <div class="field last-choice-field">
+            <label>Choice #1:</label>
+            <input class="last-choice" type="text" name="choice" placeholder="Enter a choice">
+        </div>
+        <div id="submit" class="ui one column stackable center aligned page grid">
+            <div class="column twelve wide">
+                <div class="field">
+                    <input type="submit" class="ui green large basic button">
+                </div>
+            </div>
+        </div>
     </form>
 </template>

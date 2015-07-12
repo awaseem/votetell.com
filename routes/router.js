@@ -53,6 +53,5 @@ Router.route("/:vote_id/r", {
         else {
             this.render("loading");
         }
-        //this.render("result");
     }
 });
