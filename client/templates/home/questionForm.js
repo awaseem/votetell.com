@@ -7,7 +7,38 @@
 var choices = 1;
 var MAX_CHOICES = 10;
 
-Template.questionForm.helpers({
+var enableLoadingButton = function () {
+    $(".loading-button")
+        .addClass("disabled")
+        .val("Loading");
+};
+
+var disableLoadingButton = function () {
+    $(".loading-button")
+        .removeClass("disabled")
+        .val("Submit");
+};
+
+var showErrorModal = function () {
+    $("#error-modal")
+        .modal({
+            detachable: false
+        })
+        .modal("show");
+};
+
+var showSuccessModal = function () {
+    $("#success-modal")
+        .modal({
+            detachable: false
+        })
+        .modal("show");
+};
+
+Template.questionSuccess.helpers({
+    urlKey: function () {
+        return Session.get("urlKey");
+    }
 });
 
 Template.questionError.helpers({
@@ -19,6 +50,10 @@ Template.questionError.helpers({
     }
 });
 
+Template.questionForm.onRendered(function () {
+    choices = 1;
+});
+
 Template.questionForm.events ({
     "submit .new-question": function () {
         var newQuestion = $(".new-question");
@@ -28,12 +63,22 @@ Template.questionForm.events ({
         if (choiceErrors.length != 0 || questionErrors.length != 0) {
             Session.set("questionErrors", questionErrors);
             Session.set("choiceErrors", choiceErrors);
-            $('.ui.modal')
-                .modal('show');
+            showErrorModal();
             return false;
         }
         else {
-            Meteor.call("createQuestion", formData.question, formData.choices);
+            enableLoadingButton();
+            Meteor.call("createQuestion", formData.question, formData.choices, function (error, result) {
+                if (result) {
+                    disableLoadingButton();
+                    Session.set("urlKey", result);
+                    showSuccessModal();
+                }
+                else {
+                    Session.set("questionErrors", error.reason);
+                    showErrorModal();
+                }
+            });
         }
         newQuestion.trigger("reset");
         return false;

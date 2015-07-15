@@ -23,18 +23,21 @@ var addChoice = function(question_id, choice) {
 
 Meteor.methods({
     createQuestion: function(question, choices) {
-        Questions.insert({
-            question: question
-        }, function(error, result) {
-            if (error) {
-                console.error("Failed to create question: " + question)
+        var urlKey = ShortId.generate();
+        try {
+            var question_id = Questions.insert({
+                question: question,
+                urlKey: urlKey
+            });
+            for (var i = 0; i < choices.length; i++) {
+                addChoice(question_id, choices[i]);
             }
-            else {
-                for (var i = 0; i < choices.length; i++) {
-                    addChoice(result, choices[i]);
-                }
-            }
-        });
+        }
+        catch (err) {
+            console.error("Failed to add question: " + question + " because of the following error: " + err.toString());
+            throw new Meteor.Error(500, "failed to add question: " + err.message);
+        }
+        return urlKey;
     },
     updateChoiceHit: function(choiceId) {
         Choices.update(choiceId, {

@@ -11,16 +11,17 @@
         <div id="submit" class="ui one column stackable center aligned page grid">
             <div class="column twelve wide">
                 <div class="field">
-                    <input type="submit" class="ui green large basic button">
+                    <input type="submit" value="Submit" class="ui green large basic button loading-button">
                 </div>
             </div>
         </div>
     </form>
     {{> questionError}}
+    {{> questionSuccess}}
 </template>
 
 <template name="questionError">
-    <div class="ui small modal">
+    <div id="error-modal" class="ui small modal">
         <div class="header">
             Error
         </div>
@@ -37,6 +38,28 @@
         </div>
         <div class="actions">
             <div class="ui cancel small red button">Got It!</div>
+        </div>
+    </div>
+</template>
+
+<template name="questionSuccess">
+    <div id="success-modal" class="ui small basic modal">
+        <div class="ui icon header">
+            <i class="checkmark icon"></i>
+            Successfully Created Poll!
+        </div>
+        <div class="content">
+            <p>Here is your new poll, share this url and see what people are picking and saying:</p>
+        </div>
+        <div class="actions">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                No
+            </div>
+            <a href="/{{urlKey}}/r" class="ui right labeled icon green ok inverted button" role="button">
+                <i class="right arrow icon"></i>
+                Lets see the results
+            </a>
         </div>
     </div>
 </template>

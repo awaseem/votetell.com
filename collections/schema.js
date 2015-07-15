@@ -76,20 +76,22 @@ schemas.questions = new SimpleSchema({
     },
     urlKey: {
         type: String,
-        label: "Url Key",
-        autoValue: function () {
-            if (this.isInsert) {
-                return ShortId.generate()
-            }
-            else if (this.isUpsert) {
-                return {$setOnInsert: ShortId.generate()}
-            }
-            else {
-                this.unset();
-            }
-        }
+        label: "Url Key"
     }
 });
+
+// Custom validation and validation messages
+SimpleSchema.messages({
+    spaceOnly: "[label] must contain some characters not just spaces"
+});
+
+var spaceOnlyValidator = function () {
+    if(!/\S/.test(this.value)) {
+        return "spaceOnly";
+    }
+};
+
+SimpleSchema.addValidator(spaceOnlyValidator);
 
 // Attach all of our schemas
 Questions.attachSchema(schemas.questions);
