@@ -49,17 +49,28 @@
             Successfully Created Poll!
         </div>
         <div class="content">
-            <p>Here is your new poll, share this url and see what people are picking and saying:</p>
+            <div class="ui one column stackable center aligned page grid">
+                <div class="column sixteen wide">
+                    <h3>Here is your new poll, share this url and see what people are picking and saying:</h3>
+                    <h3 class="center aligned"><a id="poll-link" href="/{{urlKey}}" class="ok">votetell.me/{{urlKey}}</a></h3>
+                </div>
+            </div>
         </div>
         <div class="actions">
-            <div class="ui red basic cancel inverted button">
-                <i class="remove icon"></i>
-                No
+            <div class="ui one column stackable center aligned page grid">
+                <div class="column eight wide">
+                    <div class="ui inverted cancel red button">
+                        <i class="checkmark box icon"></i>
+                        Thanks
+                    </div>
+                </div>
+                <div class="column eight wide">
+                    <a href="/{{urlKey}}/r" class="ui right labeled icon green ok inverted button" role="button">
+                        <i class="right arrow icon"></i>
+                        Results
+                    </a>
+                </div>
             </div>
-            <a href="/{{urlKey}}/r" class="ui right labeled icon green ok inverted button" role="button">
-                <i class="right arrow icon"></i>
-                Lets see the results
-            </a>
         </div>
     </div>
 </template>

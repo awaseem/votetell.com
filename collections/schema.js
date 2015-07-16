@@ -10,7 +10,7 @@ schemas.responses = new SimpleSchema({
     },
     response: {
         type: String,
-        max: 500,
+        max: 140,
         label: "Response to choice"
     },
     name: {
@@ -42,7 +42,7 @@ schemas.choices = new SimpleSchema({
     choice: {
         type: String,
         label: "Choice",
-        max: 500
+        max: 140
     },
     hits: {
         type: Number,
@@ -56,7 +56,7 @@ schemas.questions = new SimpleSchema({
     question: {
         type: String,
         label: "Question",
-        max: 500,
+        max: 140,
         min: 3
     },
     date: {
@@ -82,7 +82,8 @@ schemas.questions = new SimpleSchema({
 
 // Custom validation and validation messages
 SimpleSchema.messages({
-    spaceOnly: "[label] must contain some characters not just spaces"
+    spaceOnly: "[label]: \"[value]\" must contain some characters not just spaces",
+    maxString: "[label]: \"[value]\" cannot exceed [max] characters"
 });
 
 var spaceOnlyValidator = function () {

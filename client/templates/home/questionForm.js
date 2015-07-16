@@ -4,6 +4,7 @@
 
 // We already have one default choice given to the user, that's why this
 // variable is equal to one!
+test = "this is a test";
 var choices = 1;
 var MAX_CHOICES = 10;
 
@@ -24,7 +25,7 @@ var showErrorModal = function () {
         .modal({
             detachable: false
         })
-        .modal("show");
+        .modal("show").modal("refresh");
 };
 
 var showSuccessModal = function () {
@@ -32,7 +33,15 @@ var showSuccessModal = function () {
         .modal({
             detachable: false
         })
-        .modal("show");
+        .modal("show").modal("refresh");
+};
+
+var hideSuccessModal = function () {
+    $("#success-modal")
+        .modal({
+            detachable: false
+        })
+        .modal("hide").modal("refresh");
 };
 
 Template.questionSuccess.helpers({
@@ -102,5 +111,8 @@ Template.questionForm.events ({
             submitButton
                 .before(duplicateChoiceField.prop("outerHTML"));
         }
+    },
+    "click #poll-link": function () {
+        hideSuccessModal();
     }
 });
