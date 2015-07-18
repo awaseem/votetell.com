@@ -12,7 +12,7 @@ var chartOptions = {
 };
 
 var generatePieGraph = function (choices, chartId, callback) {
-    // generate a bar graph based on the labels and data
+    // generate a pie graph based on the labels and data
     // returns an instance of a chart object
     if (choices.length == 0 ) {
         return;
@@ -40,7 +40,7 @@ var generatePieGraph = function (choices, chartId, callback) {
 };
 
 var updatePieGraph = function (choices, chartObj) {
-    // update or insert new data into the bar graph
+    // update or insert new data into the pie graph
     // re-render the chart after the update is complete
     for (var i = 0; i < choices.length; i++) {
         chartObj.segments[i].value = choices[i].hits;
@@ -48,19 +48,33 @@ var updatePieGraph = function (choices, chartObj) {
     chartObj.update();
 };
 
+var doChoicesHaveVotes = function (choices) {
+    for (var i = 0; i < choices.length; i++) {
+        if (choices[i].hits != 0 ) {
+            return true
+        }
+    }
+    return false;
+};
+
 Template.chartLayout.onRendered(function() {
     var chartRendered = false;
     this.autorun(function() {
+        var choices = Choices.find().fetch();
+        if (!doChoicesHaveVotes(choices)) {
+            // TODO handle zero votes for pie chart
+            return;
+        }
         if (!chartRendered) {
             if (chart) {
                 chart.destroy();
             }
-            chart = generatePieGraph(Choices.find().fetch(), CHART_ID, function() {
+            chart = generatePieGraph(choices, CHART_ID, function() {
                 chartRendered = true;
             })
         }
         else if (chartRendered) {
-            updatePieGraph(Choices.find().fetch(), chart);
+            updatePieGraph(choices, chart);
         }
     })
 });

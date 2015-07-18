@@ -1,6 +1,20 @@
 <template name="result">
-    {{> questionLayout}}
-    {{> choiceLayout}}
-    {{> chartLayout}}
-    {{> responseLayout}}
+    <div class="ui two column centered grid container">
+        <div class="center aligned column">
+            {{> questionLayout}}
+        </div>
+    </div>
+    <div class="ui two column grid container">
+        <div class="column">
+            <div class="row">
+                {{> choiceLayout}}
+            </div>
+            <div class="row">
+                {{> chartLayout}}
+            </div>
+        </div>
+        <div class="column">
+            {{> responseLayout}}
+        </div>
+    </div>
 </template>
