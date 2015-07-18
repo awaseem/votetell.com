@@ -17,7 +17,7 @@ questionValidator = function (questionString) {
             questionErrors.push(questionContext.keyErrorMessage(invalidKeys[i].name));
         }
     }
-    return questionErrors
+    return questionErrors;
 };
 
 choiceValidator = function (choiceStrings) {
@@ -44,10 +44,10 @@ choiceValidator = function (choiceStrings) {
             }
         }
     }
-    return choiceErrors
+    return choiceErrors;
 };
 
-responseValidator = function (responseString) {
+responseValidator = function (responseString, nameString) {
     /**
      * Takes a response string and returns an array of errors that are found
      * with the string.
@@ -56,11 +56,11 @@ responseValidator = function (responseString) {
      */
     var responseErrors = [];
     var responseContext = Responses.simpleSchema().namedContext();
-    if (!responseContext.validateOne({ response: responseString}, "response")) {
+    if (!responseContext.validateOne({ response: responseString }, "response") || !responseContext.validateOne({ name: nameString }, "name")) {
         var invalidKeys = responseContext.invalidKeys();
         for (var i = 0; i < invalidKeys.length; i++) {
             responseErrors.push(responseContext.keyErrorMessage(invalidKeys[i].name));
         }
     }
-    return responseErrors
+    return responseErrors;
 };

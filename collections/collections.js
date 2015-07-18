@@ -7,3 +7,5 @@ Questions = new Mongo.Collection("questions");
 Choices = new Mongo.Collection("choices");
 
 Responses = new Mongo.Collection("responses");
+
+ipAddress = new Mongo.Collection("ipAddress");

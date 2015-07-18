@@ -2,6 +2,26 @@
  * Created by awaseem on 15-07-04.
  */
 
+var showErrorModal = function () {
+    $("#vote-error-modal")
+        .modal({
+            detachable: false
+        })
+        .modal("show").modal("refresh");
+};
+
+var disableVoteButton = function () {
+    $(".vote-button").addClass("active disabled").val("Voted");
+};
+
+Template.vote.onRendered(function () {
+    Meteor.call("hasClientVoted", Questions.findOne()._id, function (error, result) {
+        if (result) {
+            disableVoteButton();
+        }
+    })
+});
+
 Template.vote.helpers({
     question: function () {
         return Questions.findOne();
@@ -11,35 +31,64 @@ Template.vote.helpers({
     }
 });
 
+Template.choiceErrors.helpers({
+    responseErrors: function () {
+        return Session.get("responseErrors");
+    },
+    choiceError: function () {
+        return Session.get("choiceError");
+    },
+    unexpectedError: function () {
+        return Session.get("unexpectedError");
+    }
+});
+
 Template.vote.events({
     "submit .choice-selection": function (event, template) {
-        var selectionElement = template.find("input:radio[name=choice]:checked");
-        var responseElement = template.find("input:text[name=response]");
-        var choiceId = $(selectionElement).attr("id");
-        var responseText = $(responseElement).val();
+        var question = Questions.findOne();
+        var choiceId = $(template.find("input:radio[name=choice]:checked")).attr("id");
+        var nameText = $(template.find("input:text[name=name]")).val();
+        var responseText = $(template.find("input:text[name=response]")).val();
+
+        Session.set({
+            choiceError: "",
+            responseErrors: "",
+            unexpectedError: ""
+        });
 
         if (!choiceId) {
-            // TODO error handling if the choice ID is none
-            console.error("choice id is blank!");
+            Session.set("choiceError", "You must pick a choice to cast a vote!");
+            showErrorModal();
             return false;
         }
 
-        if (/\S/.test(responseText)) {
-            var responseErrors = responseValidator(responseText);
+        if (responseText !== "") {
+            if (nameText === "") {
+                nameText = "Bob";
+            }
+            var responseErrors = responseValidator(responseText, nameText);
             if (responseErrors.length != 0) {
-                console.log(responseErrors);
+                Session.set("responseErrors", responseErrors);
+                showErrorModal();
+                return false;
             }
             else {
-                Meteor.call("addResponseToChoice", choiceId, responseText, "bob"); // TODO add field for user to input name
+                Meteor.call("addResponseToChoice", question._id, choiceId, responseText, nameText, function (error) {
+                    if (error) {
+                        Session.set("unexpectedError", error.reason);
+                    }
+                });
             }
         }
-        else {
-            // TODO error handling for responses
-            console.error("response id can not be inserted");
-        }
 
-        Meteor.call("updateChoiceHit", choiceId);
+        Meteor.call("updateChoiceHit", question._id, choiceId, function (error) {
+            if (error) {
+                Session.set("unexpectedError", error.reason);
+                showErrorModal();
+            }
+        });
         $(".choice-selection").trigger("reset");
+        disableVoteButton();
         return false;
     }
 });

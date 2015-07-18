@@ -4,6 +4,15 @@
 
 var schemas = {};
 
+schemas.ipAddress = new SimpleSchema({
+    question_id: {
+        type: String
+    },
+    ipAddress: {
+        type: String
+    }
+});
+
 schemas.responses = new SimpleSchema({
     choice_id: {
         type: String
@@ -15,7 +24,7 @@ schemas.responses = new SimpleSchema({
     },
     name: {
         type: String,
-        max: 100,
+        max: 50,
         label: "Name of user"
     },
     date: {
@@ -98,3 +107,4 @@ SimpleSchema.addValidator(spaceOnlyValidator);
 Questions.attachSchema(schemas.questions);
 Choices.attachSchema(schemas.choices);
 Responses.attachSchema(schemas.responses);
+ipAddress.attachSchema(schemas.ipAddress);

@@ -24,6 +24,10 @@
                     </div>
                     <br>
                     <div class="field">
+                        <label for="name-text">Name:</label>
+                        <input type="text" id="name-text" name="name">
+                    </div>
+                    <div class="field">
                         <label for="response-text">Response:</label>
                         <input type="text" id="response-text" name="response"/>
                     </div>
@@ -31,12 +35,38 @@
                         <div class="row"></div>
                         <div class="column twelve wide">
                             <div class="field">
-                                <input type="submit" value="Submit" class="ui green large basic button loading-button">
+                                <input type="submit" value="Submit" class="ui green large basic button vote-button">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+    {{> choiceErrors}}
+</template>
+
+<template name="choiceErrors">
+    <div id="vote-error-modal" class="ui small modal">
+        <div class="header">
+            Error
+        </div>
+        <div class="content">
+            <h5>You have the following errors with your poll:</h5>
+            <ul>
+                {{#if choiceError}}
+                    <li>{{choiceError}}</li>
+                {{/if}}
+                {{#each responseErrors}}
+                    <li>{{this}}</li>
+                {{/each}}
+                {{#if unexpectedError}}
+                    <li>{{unexpectedError}}</li>
+                {{/if}}
+            </ul>
+        </div>
+        <div class="actions">
+            <div class="ui cancel small red button">Got It!</div>
         </div>
     </div>
 </template>
