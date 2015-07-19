@@ -1,20 +1,25 @@
 <template name="result">
     <div class="ui two column centered grid container">
+        <div class="row"></div>
         <div class="center aligned column">
             {{> questionLayout}}
+        </div>
+        <div class="column">
+            {{> chartLayout}}
         </div>
     </div>
     <div class="ui two column grid container">
         <div class="column">
+            <div class="row"></div>
             <div class="row">
                 {{> choiceLayout}}
             </div>
             <div class="row">
-                {{> chartLayout}}
+                <!--{{> chartLayout}}-->
             </div>
         </div>
         <div class="column">
-            {{> responseLayout}}
+            <!--{{> responseLayout}}-->
         </div>
     </div>
 </template>

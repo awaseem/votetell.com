@@ -5,6 +5,29 @@
 var chart;
 var CHART_ID = "choices-pie-chart";
 
+var chartColors = [
+    // red
+    "#db2828",
+    // orange
+    "#f2711c",
+    // yellow,
+    "#fbbd08",
+    // olive
+    "#b5cc18",
+    // teal
+    "#00b5ad",
+    // blue
+    "#2185d0",
+    // violet
+    "#6435c9",
+    // purple
+    "#a333c8",
+    // pink
+    "#e03997",
+    // brown
+    "#a5673f"
+];
+
 var chartOptions = {
     segmentShowStroke : false,
     responsive: true,
@@ -20,14 +43,18 @@ var generatePieGraph = function (choices, chartId, callback) {
     var data = [];
 
     for (var i = 0; i < choices.length; i++) {
-        data.push({
-            value: choices[i].hits,
-            color: randomColor({
-                luminosity: 'light'
-            }),
+        var chartData = {
+            label: choices[i].choice,
             highlight:"rgba(220,220,220,0.75)",
-            label: choices[i].choice
-        });
+            value: choices[i].hits
+        };
+        if (typeof chartColors[i] === 'undefined') {
+            chartData.color = "black";
+        }
+        else {
+            chartData.color = chartColors[i];
+        }
+        data.push(chartData);
     }
 
     var ctx = $("#" + chartId).get(0).getContext("2d");

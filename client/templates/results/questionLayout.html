@@ -1,4 +1,7 @@
 <template name="questionLayout">
-    <h1>{{question.question}}</h1>
-    <h4>Date Created: {{formatDate question.date}}</h4>
+    <div>
+        <h1 class="ui header">Results For: {{question.question}}</h1>
+        <h4 class="ui grey header">Date Created: {{formatDate question.date}}</h4>
+        <h4 class="ui grey header">Poll Link: <a href="/{{question.urlKey}}">votetell.com/{{question.urlKey}}</a></h4>
+    </div>
 </template>

@@ -1,7 +1,11 @@
 <template name="choiceLayout">
-    <h1>----------------------choices-------------------</h1>
-    <h1>Total Votes: {{totalHits}}</h1>
+    <h1 class="ui header center aligned">Total Votes: {{totalHits}}</h1>
     {{#each choices}}
-        <h2>{{choice}}: {{hits}}, Percentage: {{calculatePercentage hits totalHits}}%</h2>
+        <div class="ui {{getBarColor choice}} large progress">
+            <div class="bar" style="transition-duration: 300ms; -webkit-transition-duration: 300ms; width: {{calculatePercentage hits totalHits}}%;">
+                <div class="progress">{{calculatePercentage hits totalHits}}%</div>
+            </div>
+            <div class="label">Total votes for {{choice}}: {{hits}}</div>
+        </div>
     {{/each}}
 </template>
