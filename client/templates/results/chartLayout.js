@@ -3,6 +3,7 @@
  */
 
 var chart;
+
 var CHART_ID = "choices-pie-chart";
 
 var chartColors = [

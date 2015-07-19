@@ -3,23 +3,34 @@
         <div class="row"></div>
         <div class="center aligned column">
             {{> questionLayout}}
+            <br>
+            <br>
+            <div class="ui huge horizontal statistic">
+                <div class="value">
+                    {{totalHits}}
+                </div>
+                <div class="label">
+                    Total Votes
+                </div>
+            </div>
         </div>
         <div class="column">
             {{> chartLayout}}
         </div>
     </div>
     <div class="ui two column grid container">
-        <div class="column">
-            <div class="row"></div>
-            <div class="row">
-                {{> choiceLayout}}
+        <div class="row"></div>
+        <div class="row">
+            <div class="column">
+                <div class="ui sticky">
+                    {{> choiceLayout}}
+                </div>
             </div>
-            <div class="row">
-                <!--{{> chartLayout}}-->
+            <div class="column">
+                <div id="context">
+                    {{> responseLayout}}
+                </div>
             </div>
-        </div>
-        <div class="column">
-            <!--{{> responseLayout}}-->
         </div>
     </div>
 </template>

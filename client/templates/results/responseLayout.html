@@ -1,6 +1,18 @@
 <template name="responseLayout">
-    {{#each responses}}
-        <p>{{name}}</p>
-        <h1>{{response}}</h1>
-    {{/each}}
+    <h1 class="ui center aligned header">Responses</h1>
+    <div class="ui divided items">
+        {{#each responses}}
+            <div class="item">
+                <div class="content">
+                    <div class="header">{{name}}</div>
+                    <div class="meta">
+                        <span>{{formatDate date}}</span>
+                    </div>
+                    <div class="description">
+                        <p>{{response}}</p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
 </template>

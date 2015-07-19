@@ -1,5 +1,5 @@
 <template name="choiceLayout">
-    <h1 class="ui header center aligned">Total Votes: {{totalHits}}</h1>
+    <h1 class="ui header center aligned">Vote Distribution</h1>
     {{#each choices}}
         <div class="ui {{getBarColor choice}} large progress">
             <div class="bar" style="transition-duration: 300ms; -webkit-transition-duration: 300ms; width: {{calculatePercentage hits totalHits}}%;">
