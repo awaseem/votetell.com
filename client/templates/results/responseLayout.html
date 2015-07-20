@@ -1,5 +1,35 @@
 <template name="responseLayout">
     <h1 class="ui center aligned header">Responses</h1>
+    <div class="ui center aligned grid">
+        <div class="row">
+            <button class="ui toggle tiny button active" id="update-real-time">Update real time</button>
+        </div>
+        <div class="row">
+            <div class="ui floating dropdown labeled icon mini button" id="dropdown-button">
+                <i class="filter icon"></i>
+                <span class="text">Filter Responses</span>
+                <div class="menu">
+                    <div class="divider"></div>
+                    <div class="header">
+                        <i class="tags icon"></i>
+                        Choices
+                    </div>
+                    <div class="scrolling menu">
+                        <div class="item" id="item-all">
+                            <div class="ui black empty circular label"></div>
+                            All
+                        </div>
+                        {{#each choices}}
+                            <div class="item" id="{{_id}}">
+                                <div class="ui red empty circular label"></div>
+                                {{choice}}
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="ui divided items">
         {{#each responses}}
             <div class="item">
