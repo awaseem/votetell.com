@@ -1,9 +1,8 @@
 <template name="result">
-    <div class="ui two column centered grid container">
+    <div class="ui two column centered stackable grid container">
         <div class="row"></div>
         <div class="center aligned column">
             {{> questionLayout}}
-            <br>
             <br>
             <div class="ui huge horizontal statistic">
                 <div class="value">
@@ -13,23 +12,28 @@
                     Total Votes
                 </div>
             </div>
+            <br>
+            <div class="ui huge horizontal statistic">
+                <div class="value">
+                    {{totalResponses}}
+                </div>
+                <div class="label">
+                    Total Responses
+                </div>
+            </div>
         </div>
         <div class="column">
             {{> chartLayout}}
         </div>
     </div>
-    <div class="ui two column grid container">
+    <div class="ui two column stackable grid container">
         <div class="row"></div>
         <div class="row">
             <div class="column">
-                <div class="ui sticky">
-                    {{> choiceLayout}}
-                </div>
+                {{> choiceLayout}}
             </div>
             <div class="column">
-                <div id="context">
-                    {{> responseLayout}}
-                </div>
+                {{> responseLayout}}
             </div>
         </div>
     </div>
