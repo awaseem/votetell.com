@@ -4,19 +4,35 @@
 
 var ALL_FILTER = "item-all";
 
+var responsesSnapshot = [];
+
 Template.responseLayout.helpers({
     responses: function () {
         var choiceFilter = Session.get("choiceFilter");
-        var queryFilter = {};
-        if (choiceFilter) {
-            queryFilter.choice_id = choiceFilter;
+        var updateRealTime = Session.get("updateRealTime");
+        if (updateRealTime) {
+            var queryFilter = {};
+            if (choiceFilter) {
+                queryFilter.choice_id = choiceFilter;
+            }
+            return Responses.find(queryFilter, {
+                sort: { date: -1 }
+            }).fetch();
         }
-        // Some how without using fetch, this returns some exception. Google the exception didn't find a solution,
-        // but a work around. Calling fetch has solved this issue!
-        return Responses.find(queryFilter, {
-            sort: { date: -1 },
-            reactive: Session.get("updateRealTime")
-        }).fetch();
+        else {
+            var responses = [];
+            if (choiceFilter) {
+                for (var i = 0; i < responsesSnapshot.length; i++) {
+                    if (responsesSnapshot[i].choice_id === choiceFilter) {
+                        responses.push(responsesSnapshot[i]);
+                    }
+                }
+            }
+            else {
+                responses = responsesSnapshot;
+            }
+            return responses;
+        }
     },
     formatDate: function (date) {
         if (date) {
@@ -25,12 +41,29 @@ Template.responseLayout.helpers({
     },
     choices: function () {
         return Choices.find();
+    },
+    newResponses: function () {
+        return Responses.find().count() - Session.get("totalResponses")
+    },
+    updateRealTime: function () {
+        return Session.get("updateRealTime");
     }
 });
 
 Template.responseLayout.events({
     "click #update-real-time": function () {
         Session.set("updateRealTime", !Session.get("updateRealTime"));
+        // Only keep a cached copy of the responses if the user does not want them to update real time
+        if (!Session.get("updateRealTime")) {
+            responsesSnapshot = Responses.find( {}, {
+                sort: { date: -1 }
+            }).fetch();
+            Session.set("totalResponses", responsesSnapshot.length);
+        }
+        else {
+            responsesSnapshot = [];
+            Session.set("totalResponses", responsesSnapshot.length);
+        }
         $("#update-real-time").toggleClass("active");
     },
     "click #dropdown-button": function () {

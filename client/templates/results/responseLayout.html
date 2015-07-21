@@ -2,7 +2,13 @@
     <h1 class="ui center aligned header">Responses</h1>
     <div class="ui center aligned grid">
         <div class="row">
-            <button class="ui toggle tiny button active" id="update-real-time">Update real time</button>
+            <button class="ui toggle tiny button active" id="update-real-time">
+                {{#if updateRealTime}}
+                    Update Real Time
+                {{else}}
+                    {{newResponses}} New Responses
+                {{/if}}
+            </button>
         </div>
         <div class="row">
             <div class="ui floating dropdown labeled icon mini button" id="dropdown-button">
