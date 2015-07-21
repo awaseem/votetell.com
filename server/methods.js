@@ -50,15 +50,16 @@ Meteor.methods({
         return urlKey;
     },
     updateChoiceHit: function (question_id, choiceId) {
-        if (!checkIpAddress(question_id, this.connection.clientAddress)) {
-            ipAddress.insert({
-                question_id: question_id,
-                ipAddress: this.connection.clientAddress
-            });
-        }
-        else {
-            throw new Meteor.Error(500, "Can't update vote because this client has already voted!");
-        }
+        // TODO remember to remove this!!
+        //if (!checkIpAddress(question_id, this.connection.clientAddress)) {
+        //    ipAddress.insert({
+        //        question_id: question_id,
+        //        ipAddress: this.connection.clientAddress
+        //    });
+        //}
+        //else {
+        //    throw new Meteor.Error(500, "Can't update vote because this client has already voted!");
+        //}
         try{
             Choices.update(choiceId, {
                 $inc: { hits: 1 }
