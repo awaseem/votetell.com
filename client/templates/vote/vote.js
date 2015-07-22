@@ -12,12 +12,16 @@ var showErrorModal = function () {
 
 var disableVoteButton = function () {
     $(".vote-button").addClass("active disabled").val("Voted");
+    Session.set("hasVoted", true);
 };
 
 Template.vote.onRendered(function () {
     Meteor.call("hasClientVoted", Questions.findOne()._id, function (error, result) {
         if (result) {
             disableVoteButton();
+        }
+        else {
+            Session.set("hasVoted", false);
         }
     })
 });
@@ -28,6 +32,9 @@ Template.vote.helpers({
     },
     choices: function () {
         return Choices.find();
+    },
+    hasVoted: function () {
+        return Session.get("hasVoted");
     }
 });
 

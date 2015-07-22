@@ -2,8 +2,6 @@
  * Created by awaseem on 15-06-29.
  */
 
-// TODO format this code a little better
-
 Meteor.publish("questionAndChoices", function(urlKey) {
     var question = Questions.findOne({ urlKey: urlKey });
     if (!question) {

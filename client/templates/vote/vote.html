@@ -25,18 +25,21 @@
                     <br>
                     <div class="field">
                         <label for="name-text">Name:</label>
-                        <input type="text" id="name-text" name="name">
+                        <input type="text" id="name-text" name="name" placeholder="Enter a name (optional)">
                     </div>
                     <div class="field">
                         <label for="response-text">Response:</label>
-                        <input type="text" id="response-text" name="response"/>
+                        <input type="text" id="response-text" name="response" placeholder="Enter a response (optional)"/>
                     </div>
                     <div id="submit" class="ui one column stackable center aligned page grid">
                         <div class="row"></div>
                         <div class="column twelve wide">
                             <div class="field">
-                                <input type="submit" value="Submit" class="ui green large basic button vote-button">
+                                <input type="submit" value="Vote" class="ui green large basic button vote-button">
                             </div>
+                            {{#if hasVoted}}
+                                <a href="{{question.urlKey}}/r" style="color: black;">Take Me To The Results!</a>
+                            {{/if}}
                         </div>
                     </div>
                 </form>
