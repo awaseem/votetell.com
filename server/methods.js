@@ -31,8 +31,15 @@ var checkIpAddress = function (question_id, clientIpAddress) {
     return false;
 };
 
+var checkChoices = Match.Where(function (c) {
+    check(c, [String]);
+    return c.length <= MAX_CHOICES;
+});
+
 Meteor.methods({
     createQuestion: function (question, choices) {
+        check(question, String);
+        check(choices, checkChoices);
         var urlKey = ShortId.generate();
         try {
             var question_id = Questions.insert({
@@ -50,16 +57,17 @@ Meteor.methods({
         return urlKey;
     },
     updateChoiceHit: function (question_id, choiceId) {
-        // TODO remember to remove this!!
-        //if (!checkIpAddress(question_id, this.connection.clientAddress)) {
-        //    ipAddress.insert({
-        //        question_id: question_id,
-        //        ipAddress: this.connection.clientAddress
-        //    });
-        //}
-        //else {
-        //    throw new Meteor.Error(500, "Can't update vote because this client has already voted!");
-        //}
+        check(question_id, String);
+        check(choiceId, String);
+        if (!checkIpAddress(question_id, this.connection.clientAddress)) {
+            ipAddress.insert({
+                question_id: question_id,
+                ipAddress: this.connection.clientAddress
+            });
+        }
+        else {
+            throw new Meteor.Error(500, "Can't update vote because this client has already voted!");
+        }
         try{
             Choices.update(choiceId, {
                 $inc: { hits: 1 }
@@ -71,6 +79,10 @@ Meteor.methods({
         }
     },
     addResponseToChoice: function (question_id, choiceId, response, name) {
+        check(question_id, String);
+        check(choiceId, String);
+        check(response, String);
+        check(name, String);
         if (checkIpAddress(question_id, this.connection.clientAddress)) {
             throw new Meteor.Error(500, "Can't add response because this client has already said something!");
         }
@@ -87,6 +99,7 @@ Meteor.methods({
         }
     },
     hasClientVoted: function (question_id) {
+        check(question_id, String);
         return checkIpAddress(question_id, this.connection.clientAddress);
     }
 });

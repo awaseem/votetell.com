@@ -2,30 +2,10 @@
  * Created by awaseem on 15-07-08.
  */
 
-var progressBarColors = [
-    "red",
-    "orange",
-    "yellow",
-    "olive",
-    "teal",
-    "blue",
-    "violet",
-    "purple",
-    "pink",
-    "brown"
-];
-
 var choiceColors = {};
 
 Template.choiceLayout.onCreated(function () {
-    Choices.find().forEach(function (choices, index) {
-        if (typeof progressBarColors[index] === 'undefined') {
-            choiceColors[choices.choice] = "black";
-        }
-        else {
-            choiceColors[choices.choice] = progressBarColors[index];
-        }
-    });
+    choiceColors = getChoiceColors(Choices.find().fetch());
 });
 
 Template.choiceLayout.helpers({

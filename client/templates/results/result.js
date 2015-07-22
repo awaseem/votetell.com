@@ -9,9 +9,9 @@ Template.result.helpers({
         Choices.find({}, { hits: 1, _id: 0}).map(function(choice) {
             totalHits += choice.hits;
         });
-        return totalHits
+        return totalHits;
     },
     totalResponses: function () {
-        return Responses.find().count()
+        return Responses.find().count();
     }
 });

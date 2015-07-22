@@ -6,7 +6,7 @@
 // variable is equal to one!
 test = "this is a test";
 var choices = 1;
-var MAX_CHOICES = 10;
+var maxChoices = MAX_CHOICES;
 
 var enableLoadingButton = function () {
     $(".loading-button")
@@ -93,7 +93,7 @@ Template.questionForm.events ({
         return false;
     },
     "focus .last-choice": function () {
-        if (choices < MAX_CHOICES) {
+        if (choices < maxChoices) {
             choices++;
             var submitButton = $("#submit");
             var choiceField = $(".last-choice-field");

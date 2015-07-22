@@ -6,28 +6,7 @@ var chart;
 
 var CHART_ID = "choices-pie-chart";
 
-var chartColors = [
-    // red
-    "#db2828",
-    // orange
-    "#f2711c",
-    // yellow,
-    "#fbbd08",
-    // olive
-    "#b5cc18",
-    // teal
-    "#00b5ad",
-    // blue
-    "#2185d0",
-    // violet
-    "#6435c9",
-    // purple
-    "#a333c8",
-    // pink
-    "#e03997",
-    // brown
-    "#a5673f"
-];
+var chartColors = CHART_CHOICE_COLORS;
 
 var chartOptions = {
     segmentShowStroke : false,
