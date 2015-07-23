@@ -9,7 +9,8 @@ iron:router
 aldeed:collection2
 mantarayar:shortid
 chart:chart
-rzymek:randomcolor
 semantic:ui
 flemay:less-autoprefixer
 alethes:pages
+artwells:accounts-guest
+accounts-ui

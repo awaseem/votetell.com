@@ -21,8 +21,8 @@ var addChoice = function (question_id, choice) {
     });
 };
 
-var checkIpAddress = function (question_id, clientIpAddress) {
-    var query = ipAddress.findOne( {
+var checkClientAddress = function (question_id, clientIpAddress) {
+    var query = clientAddress.findOne( {
         $and: [ { question_id: question_id }, { ipAddress: clientIpAddress } ]
     } );
     if (query) {
@@ -59,10 +59,10 @@ Meteor.methods({
     updateChoiceHit: function (question_id, choiceId) {
         check(question_id, String);
         check(choiceId, String);
-        if (!checkIpAddress(question_id, this.connection.clientAddress)) {
-            ipAddress.insert({
+        if (!checkClientAddress(question_id, Meteor.userId())) {
+            clientAddress.insert({
                 question_id: question_id,
-                ipAddress: this.connection.clientAddress
+                ipAddress: Meteor.userId()
             });
         }
         else {
@@ -83,7 +83,7 @@ Meteor.methods({
         check(choiceId, String);
         check(response, String);
         check(name, String);
-        if (checkIpAddress(question_id, this.connection.clientAddress)) {
+        if (checkClientAddress(question_id, Meteor.userId())) {
             throw new Meteor.Error(500, "Can't add response because this client has already said something!");
         }
         try {
@@ -100,6 +100,6 @@ Meteor.methods({
     },
     hasClientVoted: function (question_id) {
         check(question_id, String);
-        return checkIpAddress(question_id, this.connection.clientAddress);
+        return checkClientAddress(question_id, Meteor.userId());
     }
 });

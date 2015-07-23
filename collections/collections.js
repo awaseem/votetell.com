@@ -8,4 +8,4 @@ Choices = new Mongo.Collection("choices");
 
 Responses = new Mongo.Collection("responses");
 
-ipAddress = new Mongo.Collection("ipAddress");
+clientAddress = new Mongo.Collection("clientAddress");

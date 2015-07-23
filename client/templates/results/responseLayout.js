@@ -6,6 +6,8 @@ var ALL_FILTER = "item-all";
 
 var responsesSnapshot = [];
 
+var choiceColors;
+
 Template.responseLayout.helpers({
     responses: function () {
         var choiceFilter = Session.get("choiceFilter");
@@ -47,6 +49,9 @@ Template.responseLayout.helpers({
     },
     updateRealTime: function () {
         return Session.get("updateRealTime");
+    },
+    getColorForChoice: function (choiceId) {
+        return choiceColors[choiceId];
     }
 });
 
@@ -84,6 +89,7 @@ Template.responseLayout.events({
 Template.responseLayout.onCreated(function () {
     Session.set("updateRealTime", true);
     Session.set("choiceFilter", "");
+    choiceColors = getChoiceColors(Choices.find().fetch());
 });
 
 Template.responseLayout.onRendered(function () {

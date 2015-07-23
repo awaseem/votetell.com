@@ -4,7 +4,7 @@
 
 var schemas = {};
 
-schemas.ipAddress = new SimpleSchema({
+schemas.clientAddress = new SimpleSchema({
     question_id: {
         type: String
     },
@@ -107,4 +107,4 @@ SimpleSchema.addValidator(spaceOnlyValidator);
 Questions.attachSchema(schemas.questions);
 Choices.attachSchema(schemas.choices);
 Responses.attachSchema(schemas.responses);
-ipAddress.attachSchema(schemas.ipAddress);
+clientAddress.attachSchema(schemas.clientAddress);
